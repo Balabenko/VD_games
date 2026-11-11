@@ -1,4 +1,4 @@
-from VD_games.bank.account import BankAccount
+from VD_games.bank.account import BankAccount, Bank
 
 def print_menu():
     print("=" * 40)
@@ -11,12 +11,13 @@ def print_menu():
     print("5. Показать баланс")
     print("6. Показать информацию о счёте")
     print("7. Список всех счетов")
+    print("8. История операций по счету")
     print("0. Выход")
     print("=" * 40)
 
 def get_current_account():
     acc_num = input("Введите номер вашего счета: ").strip()
-    account = BankAccount.all_accounts.get(acc_num)
+    account = BankAccount.find_account(acc_num)
     if not account:
         print("Счет не найден!")
     return account
@@ -54,14 +55,13 @@ def main():
                     print("Ошибка: Введите число.")
 
         elif choice == "4":
-            acc = get_current_account()
-            if acc:
-                try:
-                    target = input("Введите номер счета получателя: ").strip()
-                    amount = float(input("Сумма перевода: "))
-                    acc.transfer(target, amount)
-                except ValueError:
-                    print("Ошибка: Введите число.")
+            try:
+                from_acc = input("Введите номер счета отправителя: ").strip()
+                to_acc = input("Введите номер счета получателя: ").strip()
+                amount = float(input("Сумма перевода: "))
+                Bank.transfer(from_acc, to_acc, amount)
+            except ValueError:
+                print("Ошибка: Введите корректные данные.")
 
         elif choice == "5":
             acc = get_current_account()
@@ -76,12 +76,17 @@ def main():
         elif choice == "7":
             BankAccount.list_all_accounts()
 
+        elif choice == "8":
+            acc = get_current_account()
+            if acc:
+                acc.show_history()
+
         elif choice == "0":
             print("Выход из системы. До свидания!")
             break
         else:
             print("Неверный ввод. Попробуйте снова.")
-        
+
         input("\nНажмите Enter, чтобы продолжить...")
 
 if __name__ == "__main__":
