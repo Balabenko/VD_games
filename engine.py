@@ -5,7 +5,6 @@ def welcome_user():
     return name
 
 def run_game(game_module, game_description):
-    """Общий движок для всех игр."""
     name = welcome_user()
     print(game_description)
     
