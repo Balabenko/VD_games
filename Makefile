@@ -11,3 +11,6 @@ build:
 
 package-install:
 	uv tool install dist/*.whl
+
+VD-bank:
+	uv run VD-bank
