@@ -17,7 +17,6 @@ def play_even_game():
         print(f"Question: {number}")
         answer = input("Your answer: ").strip().lower()
         
-        # Определяем правильный ответ
         correct_answer = "yes" if number % 2 == 0 else "no"
         
         if answer == correct_answer:
@@ -26,7 +25,7 @@ def play_even_game():
         else:
             print(f"'{answer}' is wrong answer ;(. Correct answer was '{correct_answer}'.")
             print(f"Let's try again, {name}!")
-            return  # Завершаем игру при ошибке
+            return
             
     print(f"Congratulations, {name}!")
 
